@@ -1,0 +1,384 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Installation - Packeton Docs</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Introduction</li><li class="chapter-item expanded "><a href="index.html">Overview</a></li><li class="chapter-item expanded affix "><li class="part-title">Setup</li><li class="chapter-item expanded "><a href="installation.html" class="active">Installation</a></li><li class="chapter-item expanded "><a href="installation-docker.html">Using docker</a></li><li class="chapter-item expanded affix "><li class="part-title">Usage</li><li class="chapter-item expanded "><a href="usage/index.html">Administration</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="usage/api.html">Admin API</a></li><li class="chapter-item expanded "><a href="webhook.html">Outgoing Webhook</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="webhook.html">Intro</a></li><li class="chapter-item expanded "><a href="webhook.html">Examples</a></li><li class="chapter-item expanded "><a href="webhook/webhook-secrets.html">Secrets</a></li><li class="chapter-item expanded "><a href="webhook/wh-security.html">Security Policy</a></li><li class="chapter-item expanded "><a href="webhook/wh-test.html">Testing</a></li></ol></li><li class="chapter-item expanded "><a href="usage/update-packages.html">Update Webhooks</a></li><li class="chapter-item expanded "><a href="usage/customers.html">Customer Users</a></li><li class="chapter-item expanded "><a href="usage/credential.html">SSH Credential</a></li></ol></li><li class="chapter-item expanded "><a href="authentication.html">User Authentication</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="authentication-jwt.html">JWT Configuration</a></li><li class="chapter-item expanded "><a href="authentication-ldap.html">LDAP Configuration</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Development</li><li class="chapter-item expanded "><a href="dev/CONTRIBUTING.html">Contributing</a></li><li class="chapter-item expanded "><a href="dev/configuration.html">Configuration Reference</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Packeton Docs</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/vtsykun/packeton" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/vtsykun/packeton/edit/master/docs/installation.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h2 id="install-and-run"><a class="header" href="#install-and-run">Install and Run</a></h2>
+<p>There is an official packeton image available at <a href="https://hub.docker.com/r/packeton/packeton">https://hub.docker.com/r/packeton/packeton</a>
+which can be used with the docker-compose file, see <a href="installation-docker.html">docker installation</a></p>
+<h2 id="installation"><a class="header" href="#installation">Installation</a></h2>
+<h3 id="requirements"><a class="header" href="#requirements">Requirements</a></h3>
+<ul>
+<li>PHP 8.1+</li>
+<li>Redis for some functionality (favorites, download statistics, worker queue).</li>
+<li>git/svn/hg depending on which repositories you want to support.</li>
+<li>Supervisor to run a background job worker</li>
+<li>(optional) MySQL or PostgresSQL for the main data store, default SQLite</li>
+</ul>
+<ol>
+<li>Clone the repository</li>
+</ol>
+<pre><code class="language-bash">git clone https://github.com/vtsykun/packeton.git /var/www/packeton/
+cd /var/www/packeton/
+</code></pre>
+<ol start="2">
+<li>Install dependencies <code>composer install</code></li>
+<li>Create <code>.env.local</code> and copy needed environment variables into it. See <a href="#configuration">Configuration</a> </li>
+<li>IMPORTANT! Don't forget change <code>APP_SECRET</code></li>
+<li>Run <code>bin/console doctrine:schema:update --force --complete</code> to setup the DB</li>
+<li>Create admin user via console.</li>
+</ol>
+<pre><code class="language-bash">php bin/console packagist:user:manager username --email=admin@example.com --password=123456 --admin 
+</code></pre>
+<ol start="7">
+<li>Setup nginx or any webserver, for example nginx config looks like.</li>
+</ol>
+<pre><code>server {
+    listen *:443 ssl http2;
+    server_name packeton.example.org;
+    root /var/www/packeton/public;
+
+    ssl_certificate /etc/nginx/ssl/example.crt;
+    ssl_certificate_key /etc/nginx/ssl/example.key;
+
+    ssl_ciphers 'TLS13-CHACHA20-POLY1305-SHA256:TLS13-AES-128-GCM-SHA256:TLS13-AES-256-GCM-SHA384:ECDHE:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES128-SHA256:ECDHE-RSA-AES256-SHA:ECDHE-RSA-AES128-SHA:ECDHE-RSA-DES-CBC3-SHA:AES256-GCM-SHA384:AES128-GCM-SHA256:AES256-SHA256:AES128-SHA256:AES256-SHA:AES128-SHA:DES-CBC3-SHA:!aNULL:!eNULL:!EXPORT:!DES:!MD5:!PSK:!RC4';
+
+    ssl_protocols TLSv1.1 TLSv1.2 TLSv1.3;
+    ssl_prefer_server_ciphers on;
+    ssl_session_cache  builtin:1000  shared:SSL:10m;
+    ssl_session_timeout  5m;
+
+    rewrite ^/index\.php/?(.+)$ /$1 permanent;
+    try_files $uri @rewriteapp;
+
+    location @rewriteapp {
+        rewrite ^(.*)$ /index.php/$1 last;
+    }
+
+    access_log off;
+
+    location ~ ^/index\.php(/|$) {
+        fastcgi_split_path_info ^(.+\.php)(/.*)$;
+        include fastcgi_params;
+        fastcgi_param  SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_index index.php;
+        send_timeout 300;
+        fastcgi_read_timeout 300;
+        fastcgi_pass unix:/run/php/php8.1-fpm.sock;
+    }
+}
+</code></pre>
+<ol start="8">
+<li>Change cache permission to made it accessible for web server.</li>
+</ol>
+<pre><code class="language-bash">chown www-data:www-data -R var/
+</code></pre>
+<ol start="9">
+<li>
+<p>If you get a 500 error in index page <code>packeton.example.org</code>, please check your logs <code>var/log/prod.log</code> or/and webserver log
+and fix permissions, database config, redis etc.</p>
+</li>
+<li>
+<p>Enable cron tabs and background jobs.</p>
+</li>
+</ol>
+<p>Enable crontab <code>crontab -e -u www-data</code></p>
+<pre><code>* * * * * /var/www/packeton/bin/console --env=prod okvpn:cron &gt;&gt; /dev/null
+</code></pre>
+<p><strong>Setup Supervisor to run worker</strong></p>
+<pre><code class="language-bash">sudo apt -y --no-install-recommends install supervisor
+</code></pre>
+<p>Create a new supervisor configuration.</p>
+<pre><code class="language-bash">sudo vim /etc/supervisor/conf.d/packagist.conf
+</code></pre>
+<p>Add the following lines to the file.</p>
+<pre><code>[program:packeton-workers]
+environment =
+        HOME=/var/www/
+command=/var/www/packeton/bin/console packagist:run-workers
+directory=/var/www/packeton/
+process_name=%(program_name)s_%(process_num)02d
+numprocs=1
+autostart=true
+autorestart=true
+startsecs=0
+redirect_stderr=true
+priority=1
+user=www-data
+</code></pre>
+<h3 id="configuration"><a class="header" href="#configuration">Configuration</a></h3>
+<p>Create a file <code>.env.local</code> and change next options</p>
+<ul>
+<li><code>APP_SECRET</code> - Must be static, used for encrypt SSH keys in database.</li>
+<li><code>APP_COMPOSER_HOME</code> - composer home, default <code>/var/www/packeton/var/.composer/</code></li>
+<li><code>DATABASE_URL</code> - Database DSN, default sqlite:///%kernel.project_dir%/var/app.db</li>
+</ul>
+<p>Example for postgres <code>postgresql://app:pass@127.0.0.1:5432/app?serverVersion=14&amp;charset=utf8</code>
+Example for mysql <code>mysql://app:!ChangeMe!@127.0.0.1:3306/app?serverVersion=8&amp;charset=utf8mb4</code></p>
+<pre><code># .env.local
+
+DATABASE_URL=&quot;postgresql://app:!ChangeMe!@127.0.0.1:5432/app?serverVersion=14&amp;charset=utf8&quot;
+</code></pre>
+<ul>
+<li><code>PACKAGIST_DIST_PATH</code> - Default <code>%kernel.project_dir%/var/zipball</code>, path to storage zipped artifacts </li>
+<li><code>REDIS_URL</code> - Redis DB, default <code>redis://localhost</code></li>
+<li><code>PACKAGIST_DIST_HOST</code> - Hostname, (auto) default use the current host header in the request.</li>
+<li><code>TRUSTED_PROXIES</code> - Ips for Reverse Proxy. See <a href="https://symfony.com/doc/current/deployment/proxies.html">Symfony docs</a></li>
+<li><code>PUBLIC_ACCESS</code> - Allow anonymous users access to read packages metadata, default: <code>false</code></li>
+<li><code>MAILER_DSN</code> - Mailer for reset password, default disabled</li>
+<li><code>MAILER_FROM</code> - Mailer from</li>
+</ul>
+<h3 id="ssh-key-access-and-composer-oauth-token"><a class="header" href="#ssh-key-access-and-composer-oauth-token">Ssh key access and composer oauth token.</a></h3>
+<p>Packagist uses the composer config and global ssh-key to get read access to your repositories, so
+the supervisor worker <code>packagist:run-workers</code> and web-server must run under the user,
+that have ssh key or composer config that gives it read (clone) access to your git/svn/hg repositories.
+For example, if your application runs under <code>www-data</code> and have home directory <code>/var/www</code>, directory
+structure must be like this.</p>
+<pre><code>    └── /var/www/
+        └── .ssh/ # ssh keys directory
+            ├── config
+            ├── id_rsa # main ssh key
+            ├── private_key_2 # additional ssh key
+            └── private_key_3
+        └── packeton/ # project dir
+            ├── config APP_COMPOSER_HOME=&quot;%kernel.project_dir%/var/.composer&quot;
+            ├── public 
+            ....
+            ├── src 
+            └── var
+                ├── cache
+                ....
+                └── .composer # APP_COMPOSER_HOME=&quot;%kernel.project_dir%/var/.composer&quot;
+</code></pre>
+<p>By default, composer configuration load from <code>COMPOSER_HOME</code> and it placed at path <code>%kernel.project_dir%/var/.composer</code>.
+if you want to setup authentication in <code>auth.json</code> need to place this file to composer home, i e. <code>/var/www/packeton/var/.composer/</code>
+See <a href="https://getcomposer.org/doc/articles/authentication-for-private-packages.md#authentication-in-auth-json-per-project">Authentication in auth.json</a></p>
+<pre><code># Example /var/www/packeton/var/.composer/auth.json
+{ 
+  &quot;http-basic&quot;: {
+    &quot;git.example.pl&quot;: {
+      &quot;username&quot;: &quot;kastus&quot;,
+      &quot;password&quot;: &quot;489df705a503ac0173256ce01f&quot;
+    }
+  }
+}
+</code></pre>
+<p>Example ssh config for multiple SSH Keys for different github account/repos,
+see <a href="https://gist.github.com/jexchan/2351996">here for details</a></p>
+<pre><code># ~/.ssh/config - example
+
+Host github-oroinc
+	HostName github.com
+	User git
+	IdentityFile /var/www/.ssh/private_key_2
+	IdentitiesOnly yes
+
+Host github-org2
+	HostName github.com
+	User git
+	IdentityFile /var/www/.ssh/private_key_3
+	IdentitiesOnly yes
+
+</code></pre>
+<h4 id="allow-connections-to-http"><a class="header" href="#allow-connections-to-http">Allow connections to http.</a></h4>
+<p>You can create <code>config.json</code> in the composer home (see <code>APP_COMPOSER_HOME</code> env var) or add this option
+in the UI credentials form.</p>
+<pre><code class="language-json">{
+    &quot;secure-http&quot;: false
+}
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="installation-docker.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="installation-docker.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>
